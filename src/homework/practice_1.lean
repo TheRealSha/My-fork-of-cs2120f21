@@ -18,6 +18,8 @@ at first appear.
 symmetric property of equality to rewrite w = z as z = w.
 -/
 
+
+
 /- #2
 Give a formal statement of the conjecture (proposition) from
 #1 by filling in the "hole" in the following definition. The
