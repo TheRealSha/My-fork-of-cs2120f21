@@ -44,7 +44,7 @@ theorem prop_1_proof : prop_1 :=
 begin
   assume T x y z w,
   assume h1, 
-  rw h1,
+  rw h1, -- exact eq.sym h1
 end
 
 /-
@@ -78,6 +78,14 @@ begin
   --apply forall.elim(x)
 end
 -/
+axioms
+(Ball : Type)
+(blue : Ball → Prop)
+(allBallsBlue : ∀ (b : Ball), blue b)
+(tomsBall : Ball)
+
+theorem tomsBallIsBlue : blue tomsBall := 
+allBallsBlue tomsBall
 
 /-
 IMPLIES: →
@@ -100,7 +108,7 @@ Hint: put parenthesis around "n + 1" in your answer.
 -/
 
 def successor_of_even_is_odd : Prop := 
-  ∀ (n : ℕ)
+  ∀ (n : ℕ),
   ev n → odd (n+1)
 
 /- #7
