@@ -8,7 +8,7 @@ begin
   -- ¬ (0 = 1)
   -- (0 = 1) → false
   assume h,
-  cases h,
+  cases h, --trivial,
 end
 
 
@@ -16,7 +16,8 @@ end
 example : 0 ≠ 0 → 2 = 3 :=
 begin
   assume h,
-  have f : false := h (eq.refl 0),
+  have zeqz := eq.refl 0,
+  have f : false := h zeqz,
   exact false.elim (f),
 end
 
@@ -60,23 +61,27 @@ begin
   assumption,
   contradiction,
 end
+-- proof by negation: trying to proove not p 
+  -- assume p then show false
+-- proof by contradiction: trying to prove p
+  -- show p is false
 
 -- 5
 theorem demorgan_1 : ∀ (P Q : Prop), ¬ (P ∧ Q) ↔ ¬ P ∨ ¬ Q :=
 begin
   assume P Q,
-  apply iff.intro,
+  apply iff.intro,  --split,
   --forwards
   assume notpandq,
-  have porp := classical.em P,
-  cases porp,
+  have pornp := classical.em P,
+  cases pornp,
     --case: P is true
     apply or.intro_right (¬P) _,
     assume q,
-    have pandq := and.intro porp q,
+    have pandq := and.intro pornp q,
     exact notpandq pandq,
     -- case: P implies false
-    apply or.intro_left (¬Q) porp,
+    apply or.intro_left (¬Q) pornp,
   --backwards
   assume notporq,
   cases notporq,
@@ -88,9 +93,10 @@ begin
     assume pandq3,
     have q := and.elim_right pandq3,
     apply notporq q,
-
 end
 
+/- admit, a command to put a knife to 
+lean's neck and force it to accept it -/
 
 -- 6
 theorem demorgan_2 : ∀ (P Q : Prop), ¬ (P ∨ Q) → ¬P ∧ ¬Q :=
